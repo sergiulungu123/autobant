@@ -1,17 +1,27 @@
-import * as React from 'react';
+import { Button, Tooltip } from '@mui/material';
+import React, { useState } from 'react';
 
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { Tooltip } from '@mui/material';
-import { dark } from 'react-syntax-highlighter/dist/esm/styles/prism';
-import { useState } from 'react';
+import { nord } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
-function NpmInstall() {
+const NpmInstall = () => {
   const [selectedButton, setSelectedButton] = useState(null);
   const code = 'npm install -g @nestjs/cli';
   const language = 'javascript';
 
   const handleButtonClick = (buttonName) => {
     setSelectedButton(buttonName);
+  };
+
+  const buttonStyle = {
+    selected: {
+      backgroundColor: '#d8d8d2',
+      color : '#ffffff',
+    },
+    pressed: {
+      backgroundColor: 'rgb(46, 52, 64)',
+      transition: 'background-color 1s',
+    },
   };
 
   const tooltipText = {
@@ -39,23 +49,40 @@ function NpmInstall() {
     ),
     cli: (
       <div>
-        <br/>
-        The CLI is a tool that allows you to control NestJS on the command line.
+        This means that a tool will be installed that will help you work with the socket through the command line.
       </div>
     ),
   };
 
   return (
     <div>
-      <SyntaxHighlighter language={language} style={dark}>
+      <SyntaxHighlighter language={language} style={nord}>
         {code}
       </SyntaxHighlighter>
-      <Tooltip trigger="hover" title={tooltipText[selectedButton] || ''}>
-        <button onClick={() => handleButtonClick('g')} className={selectedButton === 'g' ? 'selected-button' : ''}>-g</button>
-        <button onClick={() => handleButtonClick('cli')} className={selectedButton === 'cli' ? 'selected-button' : ''}>cli</button>
+      <Tooltip title={selectedButton === 'g' ? tooltipText.g : ''}>
+        <Button
+          onClick={() => handleButtonClick('g')}
+          style={{
+            ...buttonStyle.selected,
+            ...(selectedButton === 'g' ? buttonStyle.pressed : {}),
+          }}
+        >
+          -g
+        </Button>
+      </Tooltip>
+      <Tooltip title={selectedButton === 'cli' ? tooltipText.cli : ''}>
+        <Button
+          onClick={() => handleButtonClick('cli')}
+          style={{
+            ...buttonStyle.selected,
+            ...(selectedButton === 'cli' ? buttonStyle.pressed : {}),
+          }}
+        >
+          cli
+        </Button>
       </Tooltip>
     </div>
   );
-}
+};
 
 export default NpmInstall;
