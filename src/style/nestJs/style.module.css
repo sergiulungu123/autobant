@@ -1,0 +1,15 @@
+button {
+  margin: 5px;
+}
+
+.selected-button {
+  background-color: #ffff00;
+}
+
+button:hover {
+  background-color: #eeeeee;
+}
+
+button[data-tip]:hover {
+  cursor: pointer;
+}
