@@ -4,6 +4,8 @@ import React, { useState } from 'react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { nord } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
+// import styles from './style/css.module.css'
+
 const NpmInstall = () => {
   const [selectedButton, setSelectedButton] = useState(null);
   const code = 'npm install -g @nestjs/cli';
@@ -16,7 +18,7 @@ const NpmInstall = () => {
   const buttonStyle = {
     selected: {
       backgroundColor: '#d8d8d2',
-      color : '#ffffff',
+      color: '#ffffff',
     },
     pressed: {
       backgroundColor: 'rgb(46, 52, 64)',
@@ -35,7 +37,8 @@ const NpmInstall = () => {
         <br />
         - The package can be used by all users of the system.
         <br />
-        - Installing globally can speed up the launch of applications that use the package.
+        - Installing globally can speed up the launch of applications that use
+        the package.
         <br />
         <br />
         <strong>Disadvantages:</strong>
@@ -43,13 +46,14 @@ const NpmInstall = () => {
         - Takes up more disk space.
         <br />
         - May lead to conflicts with other packages.
-        <br />
-        - It can be more difficult to track which packages are installed globally.
+        <br />- It can be more difficult to track which packages are installed
+        globally.
       </div>
     ),
     cli: (
       <div>
-        This means that a tool will be installed that will help you work with the socket through the command line.
+        This means that a tool will be installed that will help you work with
+        the socket through the command line.
       </div>
     ),
   };
@@ -59,7 +63,7 @@ const NpmInstall = () => {
       <SyntaxHighlighter language={language} style={nord}>
         {code}
       </SyntaxHighlighter>
-      <Tooltip title={selectedButton === 'g' ? tooltipText.g : ''}>
+      <Tooltip  title={selectedButton === 'g' ? tooltipText.g : ''}>
         <Button
           onClick={() => handleButtonClick('g')}
           style={{
