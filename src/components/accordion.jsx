@@ -69,7 +69,6 @@ function AccordionSteps() {
           </Typography>
         </AccordionDetails>
       </Accordion>
-      <button onClick={Userfront.logout}>Logout</button>
     </div>
   );
 }
