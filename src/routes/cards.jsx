@@ -1,13 +1,11 @@
 import * as React from 'react';
 
-import classes from './../App.module.css'
+import FrameworkCard from '../components/frameworkCard';
 
 export default function Cards() {
   return (
-    
-    <div className={classes.App}>
-      <h1>In progress</h1>
-      <img src="/images/1.jpg" alt='foto'></img>
+    <div>
+      <FrameworkCard name = {'NestJs'} imagePath = {'https://commons.wikimedia.org/wiki/File:NestJS.svg'}/>
     </div>
   );
 }

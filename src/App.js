@@ -1,45 +1,18 @@
-import {
-  Navigate,
-  Route,
-  BrowserRouter as Router,
-  Routes,
-  useLocation,
-} from 'react-router-dom';
-import Userfront, { LoginForm } from '@userfront/toolkit/react';
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom'; // Import Routes
 
-import Backoffice from './routes/back-office';
+import AccordionSteps from '../src/components/accordion'
 import Cards from './routes/cards';
-
-Userfront.init('7n84wr7n');
+import React from 'react';
 
 function App() {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Cards />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/back-office" element={<Backoffice />} />
+        <Route path="/learn-more" element={<AccordionSteps />} /> 
       </Routes>
     </Router>
   );
-}
-
-function Login() {
-  return (
-    <div>
-      <LoginForm />
-    </div>
-  );
-}
-
-function RequireAuth({ children }) {
-  let location = useLocation();
-  if (!Userfront.tokens.accessToken) {
-    // Redirect to the /login page
-    return <Navigate to="/login" state={{ from: location }} replace />;
-  }
-
-  return children;
 }
 
 export default App;
