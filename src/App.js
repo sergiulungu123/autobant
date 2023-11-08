@@ -5,6 +5,7 @@ import {
   BrowserRouter as Router,
   Routes,
   useLocation,
+  useParams,
 } from "react-router-dom";
 import Userfront, {
   LoginForm,
@@ -23,9 +24,10 @@ function App() {
       <Routes>
         <Route path="/" element={<Cards />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/reset" element={<PasswordReset />} />
+        <Route path="/reset/:uuid/:token/:type" element={<PasswordResetWithQueryParams />} />
+
         <Route
-            path="/learn-more"
+            path="/back-office"
             element={
               <RequireAuth>
                 <AccordionSteps />
@@ -45,7 +47,16 @@ function RequireAuth({ children }) {
   return children
 }
 
-function PasswordReset() {
+function PasswordResetWithQueryParams() {
+  // Use the useParams hook to access and parse the query parameters
+  const { uuid, token, type } = useParams();
+
+  // Now you can use uuid, token, and type in your component
+  // For example:
+  console.log('UUID:', uuid);
+  console.log('Token:', token);
+  console.log('Type:', type);
+
   return (
     <div>
       <h2>Password Reset</h2>

@@ -1,7 +1,12 @@
 import * as React from 'react';
 
+import Userfront, {
+  LoginForm,
+  PasswordResetForm,
+  SignupForm,
+} from '@userfront/toolkit/react';
+
 import FrameworkCard from '../components/frameworkCard';
-import { PasswordResetForm } from '@userfront/toolkit';
 
 export default function Cards() {
   return (
@@ -11,6 +16,7 @@ export default function Cards() {
         imagePath={'https://commons.wikimedia.org/wiki/File:NestJS.svg'}
       />
       <PasswordReset />
+      <button onClick={Userfront.logout}>Logout</button>
     </div>
   );
 
