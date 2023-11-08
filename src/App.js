@@ -5,9 +5,7 @@ import {
   Routes,
   useLocation,
 } from 'react-router-dom';
-import Userfront, {
-  LoginForm,
-} from '@userfront/toolkit/react';
+import Userfront, { LoginForm } from '@userfront/toolkit/react';
 
 import Backoffice from './routes/back-office';
 import Cards from './routes/cards';
@@ -20,10 +18,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Cards />} />
         <Route path="/login" element={<Login />} />
-        <Route
-          path="/back-office"
-          element={<RequireAuth>{<Backoffice />}</RequireAuth>}
-        />
+        <Route path="/back-office" element={<Backoffice />} />
       </Routes>
     </Router>
   );
