@@ -1,5 +1,11 @@
 import * as React from 'react';
 
+import Userfront, {
+  LoginForm,
+  PasswordResetForm,
+  SignupForm
+} from "@userfront/toolkit/react";
+
 import Accordion from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
@@ -63,6 +69,7 @@ function AccordionSteps() {
           </Typography>
         </AccordionDetails>
       </Accordion>
+      <button onClick={Userfront.logout}>Logout</button>
     </div>
   );
 }
