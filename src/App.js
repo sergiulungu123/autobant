@@ -23,6 +23,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Cards />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/reset" element={<PasswordReset />} />
         <Route
             path="/learn-more"
             element={
@@ -44,6 +45,15 @@ function RequireAuth({ children }) {
   return children
 }
 
+function PasswordReset() {
+  return (
+    <div>
+      <h2>Password Reset</h2>
+      <PasswordResetForm />
+    </div>
+  );
+}
+
 function Login() {
   return (
     <div>
@@ -52,5 +62,6 @@ function Login() {
     </div>
   );
 }
+
 
 export default App;
