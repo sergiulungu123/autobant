@@ -5,18 +5,18 @@ import {
   BrowserRouter as Router,
   Routes,
   useLocation,
-} from "react-router-dom";
+} from 'react-router-dom';
 import Userfront, {
   LoginForm,
   PasswordResetForm,
-  SignupForm
-} from "@userfront/toolkit/react";
+  SignupForm,
+} from '@userfront/toolkit/react';
 
-import AccordionSteps from '../src/components/accordion'
+import AccordionSteps from '../src/components/accordion';
 import Cards from './routes/cards';
 import React from 'react';
 
-Userfront.init("7n84wr7n");
+Userfront.init('rbv769jn');
 function App() {
   return (
     <Router>
@@ -24,13 +24,13 @@ function App() {
         <Route path="/" element={<Cards />} />
         <Route path="/login" element={<Login />} />
         <Route
-            path="/learn-more"
-            element={
-              <RequireAuth>
-                <AccordionSteps />
-              </RequireAuth>
-            }
-          />
+          path="/learn-more"
+          element={
+            <RequireAuth>
+              <AccordionSteps />
+            </RequireAuth>
+          }
+        />
       </Routes>
     </Router>
   );
@@ -41,7 +41,7 @@ function RequireAuth({ children }) {
     // Redirect to the /login page
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
-  return children
+  return children;
 }
 
 function Login() {
