@@ -43,6 +43,7 @@ function BackOffice() {
     setUsername('')
     setIsLoggedIn(false);
     console.log('logged out')
+    // @ts-ignore
     return (<div>{renderContent}</div>);
   };
 
@@ -60,32 +61,32 @@ function BackOffice() {
         <div>
           <div className="Auth-form-container, text-center">
             <form>
-              <div class="form-outline mb-4">
+              <div className="form-outline mb-4">
                 <input
                   type="text"
                   id="form2Example1"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                   placeholder="username"
-                  class="form-control"
+                  className="form-control"
                 />
               </div>
 
-              <div class="form-outline mb-3">
+              <div className="form-outline mb-3">
                 <input
                   type="password"
                   id="form2Example1"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="password"
-                  class="form-control"
+                  className="form-control"
                 />
               </div>
 
               <button
                 type="button"
                 onClick={handleLogin}
-                class="btn btn-primary btn-block mb-4"
+                className="btn btn-primary btn-block mb-4"
               >
                 Sign in
               </button>
