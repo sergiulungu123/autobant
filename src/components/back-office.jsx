@@ -1,17 +1,19 @@
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 import * as React from 'react';
 
-import { addDoc, collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs } from 'firebase/firestore';
 
 import bcrypt from 'bcryptjs';
+import cls from '../style.module.css';
 import { db } from './config';
 import { useState } from 'react';
 
-function FrameworkCard() {
+function BackOffice() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [isCorrectPassword, setIsCorrectPassword] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
   const compare = (pass, hash) => {
     if (pass && hash) {
       return bcrypt.compareSync(pass, hash);
@@ -22,7 +24,6 @@ function FrameworkCard() {
   };
 
   const handleLogin = async () => {
-    console.log('start');
     const usersCollection = collection(db, 'users');
     const usersSnapshot = await getDocs(usersCollection);
     const userData = usersSnapshot.docs.map((doc) => doc.data());
@@ -38,9 +39,11 @@ function FrameworkCard() {
   };
 
   const handleLogout = () => {
+    setPassword('')
+    setUsername('')
     setIsLoggedIn(false);
-    setUsername('');
-    setPassword('');
+    console.log('logged out')
+    return (<div>{renderContent}</div>);
   };
 
   const renderContent = () => {
@@ -52,36 +55,52 @@ function FrameworkCard() {
           <button onClick={handleLogout}>Logout</button>
         </div>
       );
-    } else if (isCorrectPassword === false) {
+    } else {
       return (
         <div>
-          <p>Incorrect username or password. Please try again.</p>
+          <div className="Auth-form-container, text-center">
+            <form>
+              <div class="form-outline mb-4">
+                <input
+                  type="text"
+                  id="form2Example1"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  placeholder="username"
+                  class="form-control"
+                />
+              </div>
+
+              <div class="form-outline mb-3">
+                <input
+                  type="password"
+                  id="form2Example1"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="password"
+                  class="form-control"
+                />
+              </div>
+
+              <button
+                type="button"
+                onClick={handleLogin}
+                class="btn btn-primary btn-block mb-4"
+              >
+                Sign in
+              </button>
+            </form>
+          </div>
         </div>
       );
-    } else {
-      return null;
     }
   };
 
   return (
-    <div>
-      <input
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-        placeholder="Username"
-      />
-      <input
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        placeholder="Password"
-        type="password"
-      />
-      <button type="submit" onClick={handleLogin}>
-        Login
-      </button>
+    <div className={cls.app}>
       <main>{renderContent()}</main>
     </div>
   );
 }
 
-export default FrameworkCard;
+export default BackOffice;

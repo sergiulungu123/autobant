@@ -1,7 +1,10 @@
+import "bootstrap/dist/css/bootstrap.min.css"
+
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 
+import BackOffice from "./components/back-office";
 import Cards from './routes/cards';
-import FrameworkCard from './components/frameworkCard';
+import FrameworkCard from './components/back-office';
 import React from 'react';
 import Userfront from '@userfront/toolkit/react';
 
@@ -11,7 +14,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Cards />} />
-        <Route path="/test" element={<FrameworkCard />} />
+        <Route path="/back-office" element={<BackOffice />} />
       </Routes>
     </Router>
   );
