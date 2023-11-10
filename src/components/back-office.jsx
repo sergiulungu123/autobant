@@ -39,12 +39,12 @@ function BackOffice() {
   };
 
   const handleLogout = () => {
-    setPassword('')
-    setUsername('')
+    setPassword('');
+    setUsername('');
     setIsLoggedIn(false);
-    console.log('logged out')
+    console.log('logged out');
     // @ts-ignore
-    return (<div>{renderContent}</div>);
+    return <div>{renderContent}</div>;
   };
 
   const renderContent = () => {

@@ -4,13 +4,13 @@ import { getFirestore } from 'firebase/firestore';
 import { initializeApp } from 'firebase/app';
 // TODO: Add SDKs for Firebase products that you want to use
 const firebaseConfig = {
-  apiKey: 'AIzaSyB6L4s1oDyOxeHtVG-pKoHWCRr88cBE8I4',
-  authDomain: 'autobant-1f848.firebaseapp.com',
-  projectId: 'autobant-1f848',
-  storageBucket: 'autobant-1f848.appspot.com',
-  messagingSenderId: '464041843857',
-  appId: '1:464041843857:web:8d4c769562ed67e6367330',
-  measurementId: 'G-WSLYLDBSV8',
+  apiKey: process.env.REACT_APP_API_KEY,
+  authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+  messagingSenderId: process.env.MESSAGIN_SENFER_ID,
+  appId: process.env.REACT_APP_MESSAGIN_SENFER_ID,
+  measurementId: process.env.REACT_APP_APP_ID,
 };
 
 // Initialize Firebase

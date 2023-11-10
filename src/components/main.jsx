@@ -1,18 +1,13 @@
-import "bootstrap/dist/css/bootstrap.min.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-import * as React from "react";
+import * as React from 'react';
 
-import { collection, getDocs } from "firebase/firestore";
-
-import bcrypt from "bcryptjs";
-import cls from "../style.module.css";
-import { db } from "./config";
-import { useEffect, useState } from "react";
+import cls from '../style.module.css';
 
 function Main() {
   return (
     <div className={cls.app}>
-      <p className={cls.loading}>progress</p>
+      <p className={cls.loading}>{process.env.REACT_APP_MESSAGE}</p>
     </div>
   );
 }
