@@ -1,30 +1,34 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import * as React from 'react';
+import  { React, useState } from 'react';
 
+import Button from '@mui/material-next/Button';
 import cls from '../style.module.css';
 import { useTranslation } from 'react-i18next';
 
 function Main() {
   const { t, i18n } = useTranslation();
+  const[roLanguage, setRoLanguage] = useState(true)
 
   const changeLanguage = (language) => {
+    language === "ro" ? setRoLanguage(true) : setRoLanguage(false)
+    console.log(roLanguage)
     i18n.changeLanguage(language);
   };
   return (
     <div>
-      <button
-        class="btn btn-light"
+      <Button
         onClick={() => changeLanguage('ro')}
+        variant={roLanguage ? "filled" : "elevated"}
       >
-        eng
-      </button>
-      <button
-        class="btn btn-light"
-        onClick={() => changeLanguage('rus')}
+        ro
+      </Button>
+      <Button
+        onClick={() => changeLanguage('ru')}
+        variant={roLanguage ? "elevated" : "filled"}
       >
-        rus
-      </button>
+        ru
+      </Button>
       <div className={cls.app}>
         <p className={cls.loading}> {t('progress')}</p>
       </div>

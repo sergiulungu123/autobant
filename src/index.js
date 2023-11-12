@@ -7,7 +7,7 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import common_ro from './language/ro/translation.json'
-import common_rus from './language/rus/translation.json';
+import common_rus from './language/ru/translation.json';
 import i18n from 'i18next';
 import reportWebVitals from './reportWebVitals';
 
@@ -18,7 +18,7 @@ i18n
       ro: {
         translation: common_ro,
       },
-      rus: {
+      ru: {
         translation: common_rus,
       },
     },
