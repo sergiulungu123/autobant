@@ -2,8 +2,32 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
-  padding: 15px;
+  border: 10px solid #000;
+  border-radius: 10px;
+}
+
+.container {
+  display: flex;
+  justify-content: center; /* Horizontally center */
+  align-items: center; /* Vertically center */
+  height: 100vh; /* Adjust the height as needed */
+}
+
+.cards {
+  display: flex;
+  gap: 20px; /* Adjust the gap between cards */
+}
+
+/* Your individual card styles */
+.card {
+  /* Add your card styles here */
+}
+
+.main {
+  top: 50%;
+  left: 50%;
+  border: 11px solid #ffffff;
+  border-radius: 10px;
 }
 
 body {
@@ -48,8 +72,6 @@ p {
   border: 1px solid #000;
   border-radius: 10px;
 }
-
-
 
 .myForm {
   background-color: #fff; /* Цвет формы */

@@ -40,7 +40,7 @@ function BackOffice() {
   };
 
   const handleLogin = async () => {
-    localStorage.setItem(
+    sessionStorage.setItem(
       'auth_key',
       JSON.stringify(process.env.REACT_APP_AUTH_KEY)
     );
@@ -59,7 +59,7 @@ function BackOffice() {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('auth_key');
+    sessionStorage.removeItem('auth_key');
     setPassword('');
     setUsername('');
     setIsLoggedIn(false);
@@ -69,8 +69,7 @@ function BackOffice() {
   };
 
   const renderContent = () => {
-    const auth_key = localStorage.getItem('auth_key');
-    console.log('auth_key', auth_key);
+    const auth_key = sessionStorage.getItem('auth_key');
     if (isLoggedIn || auth_key) {
       return (
         <div>
@@ -87,7 +86,7 @@ function BackOffice() {
           )}
         </div>
       );
-    }else {
+    } else {
       return (
         <div>
           <div className="Auth-form-container, text-center">
@@ -129,7 +128,7 @@ function BackOffice() {
   };
 
   return (
-    <div className={cls.app}>
+    <div>
       <main>{renderContent()}</main>
     </div>
   );

@@ -1,128 +1,167 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
+import { useState } from 'react';
+import { collection, addDoc } from 'firebase/firestore';
+import Modal from '@mui/material/Modal';
+import {
+  TextField,
+  Button,
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
+} from '@mui/material';
 
-import { addDoc, collection, getDocs, } from 'firebase/firestore';
-
-import React from 'react';
+import Box from '@mui/material/Box';
+import styled from 'styled-components';
 import { db } from './../config';
 
-function OrderForm({t}) {
-  const [name, setName] = React.useState('');
-  const [phoneNumber, setPhoneNumber] = React.useState('');
-  const [address, setAddress] = React.useState('');
-  const [deliveryDateTime, setDeliveryDateTime] = React.useState('');
-  const [color, setColor] = React.useState('');
+const StyledForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  max-width: auto !important;
+  margin: auto;
+  
+`;
 
-  async function createOrder(event) {
+const StyledFormControl = styled(FormControl)`
+  width: 100%;
+`;
+
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 700,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+};
+
+const OrderForm = (props) => {
+  const [name, setName] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [address, setAddress] = useState('');
+  const [deliveryDateTime, setDeliveryDateTime] = useState('');
+  const [color, setColor] = useState('');
+  const [details, setDetails] = useState('');
+  const [typeOfOrder, setTypeOfOrder] = useState(props.type);
+  const [status, setStatus] = useState('pending');
+  const [showModal, setShowModal] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [createdAt, setCreatedAt] = useState(new Date());
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  const createOrder = async (event) => {
     event.preventDefault();
-
-    const requiredFields = [
-      'name',
-      'phoneNumber',
-      'address',
-      'deliveryDateTime',
-      'color',
-    ];
-
-    for (const field of requiredFields) {
-      if (!document.getElementById(field).value) {
-        alert(`Please fill out the ${field} field.`);
-        return;
-      }
-    }
-
     const newOrder = {
-      name: name,
+      name,
       phoneNumber,
       address,
       deliveryDateTime,
       color,
+      details,
+      typeOfOrder,
+      status,
+      createdAt,
     };
+    await addDoc(collection(db, 'Order'), newOrder);
+    resetForm();
+    setShowModal(true);
+  };
 
-    await addDoc(collection(db, 'Order'), newOrder)
-    // Submit the order data to your backend (e.g., Firebase)
-
-    // Clear input fields
+  const resetForm = () => {
     setName('');
     setPhoneNumber('');
     setAddress('');
     setDeliveryDateTime('');
     setColor('');
-  }
+    setDetails('');
+  };
 
   return (
     <div>
-      <form onSubmit={createOrder}>
-        <div className="col-12">
-          <label htmlFor="name">{t("name")}</label>
-          <input
-            type="text"
-            className="form-control"
-            id="name"
-            value={name}
-            onChange={(event) => setName(event.target.value)}
-            required
-          />
-        </div>
+      <StyledForm onSubmit={createOrder}>
+        <TextField
+          label={props.t('name')}
+          value={name}
+          onChange={(event) => setName(event.target.value)}
+          required
+        />
 
-        <div className="col-12">
-          <label htmlFor="phoneNumber">Telefon de contact</label>
-          <input
-            type="tel"
-            className="form-control"
-            id="phoneNumber"
-            value={phoneNumber}
-            onChange={(event) => setPhoneNumber(event.target.value)}
-            required
-          />
-        </div>
+        <TextField
+          label={props.t('phone')}
+          type="tel"
+          value={phoneNumber}
+          onChange={(event) => setPhoneNumber(event.target.value)}
+          required
+        />
 
-        <div className="col-12">
-          <label htmlFor="address">Adresa livrarii</label>
-          <textarea
-            className="form-control"
-            id="address"
-            rows="3"
-            value={address}
-            onChange={(event) => setAddress(event.target.value)}
-            required
-          />
-        </div>
+        <TextField
+          label={props.t('address')}
+          multiline
+          rows={3}
+          value={address}
+          onChange={(event) => setAddress(event.target.value)}
+          required
+        />
 
-        <div className="col-12">
-          <label htmlFor="deliveryDateTime">Data si ora livrarii</label>
-          <input
-            type="datetime-local"
-            className="form-control"
-            id="deliveryDateTime"
-            value={deliveryDateTime}
-            onChange={(event) => setDeliveryDateTime(event.target.value)}
-            required
-          />
-        </div>
+        <TextField
+          label={props.t('date')}
+          type="datetime-local"
+          value={deliveryDateTime}
+          onChange={(event) => setDeliveryDateTime(event.target.value)}
+          required
+        />
 
-        <div className="col-md-4">
-          <label htmlFor="color">Culoarea</label>
-          <select
-            className="form-select"
-            id="color"
+        <StyledFormControl>
+          <InputLabel id="color-label">{props.t('color')}</InputLabel>
+          <Select
+            labelId="color-label"
             value={color}
             onChange={(event) => setColor(event.target.value)}
             required
           >
-            <option value="">...</option>
-            <option value="white">Alb</option>
-            <option value="black">Negru</option>
-          </select>
-        </div>
+            <MenuItem value="">
+              <em>...</em>
+            </MenuItem>
+            <MenuItem value="white">{props.t('white')}</MenuItem>
+            <MenuItem value="black">{props.t('black')}</MenuItem>
+          </Select>
+        </StyledFormControl>
 
-        <div className="col-12">
-          <button type="submit" className="btn btn-primary">
-            Comanda
-          </button>
-        </div>
-      </form>
+        <TextField
+          label={props.t('details')}
+          multiline
+          rows={3}
+          value={details}
+          onChange={(event) => setDetails(event.target.value)}
+          required
+        />
+
+        <Button
+          type="submit"
+          onClick={handleOpen}
+          variant="contained"
+          color="primary"
+        >
+          {props.t('order')}
+        </Button>
+      </StyledForm>
+
+      {showModal && (
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-dÍescription"
+        >
+          <Box sx={style}>{props.t('orderPlacedMessage')}</Box>
+        </Modal>
+      )}
     </div>
   );
-}
+};
 
 export default OrderForm;

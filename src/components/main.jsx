@@ -1,26 +1,23 @@
-import { React, useState } from 'react';
-
-import Box from '@mui/material/Box';
-import { Button } from '@mui/material';
-// eslint-disable-next-line no-unused-vars
+import { useState } from 'react';
+import {
+  Card,
+  CardHeader,
+  CardMedia,
+  CardContent,
+  CardActions,
+  Typography,
+  IconButton,
+  Collapse,
+  Button,
+  Modal,
+  Box,
+} from '@mui/material';
 import LanguageButton from './ui/language-button';
-import Modal from '@mui/material/Modal';
-import OrderForm from './ui/order-form';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import cls from '../style.module.css';
+import OrderForm from './ui/order-form';
+// Existing component structure...
 import { useTranslation } from 'react-i18next';
-
-const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 400,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
-  p: 4,
-};
-
 function Main() {
   const { t, i18n } = useTranslation();
   const [roLanguage, setRoLanguage] = useState(true);
@@ -30,13 +27,27 @@ function Main() {
     console.log(roLanguage);
     i18n.changeLanguage(language);
   };
+  const [basicOpen, setBasicOpen] = useState(false);
+  const [basicPremium, setPremumOpen] = useState(false);
 
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleBasicOpen = () => {
+    setBasicOpen(true);
+  };
+
+  const handleBasicClose = () => {
+    setBasicOpen(false);
+  };
+
+  const handlePremumOpen = () => {
+    setPremumOpen(true);
+  };
+
+  const handlePremiumClose = () => {
+    setPremumOpen(false);
+  };
 
   return (
-    <div>
+    <div className={cls.main}>
       <div>
         <LanguageButton
           roLanguage={roLanguage}
@@ -57,23 +68,73 @@ function Main() {
           {' '}
         </LanguageButton>
       </div>
-      <div className={cls.app}>
-        <div className="card">
-          <div className="card-body">
-            <h5 className="card-title">Card title</h5>
-            <p className="card-text">{t('card-text')}</p>
-            <Button onClick={handleOpen}>{t('order')}</Button>
+      <div className={cls.container}>
+        <div className={cls.cards}>
+          <Card className={cls.card} sx={{ maxWidth: 345 }}>
+            <CardHeader title="Premium" />
+            <CardMedia
+              component="img"
+              height="194"
+              image="https://www.woweffect.md/uploads/cars/1679604952.jpg"
+              alt="Paella dish"
+            />
+            <CardContent>
+              <Typography variant="body2" color="text.secondary">
+                {t('descriptionOfItem')}
+              </Typography>
+            </CardContent>
+            <CardActions disableSpacing>
+              <Button onClick={handleBasicOpen}>{t('order')}</Button>
+            </CardActions>
+            <Modal open={basicOpen} onClose={handleBasicClose}>
+              <Box
+                sx={{
+                  height: '700px',
+                  width: '700px',
+                  bgcolor: 'background.paper',
+                  boxShadow: 24,
+                  p: 4,
+                }}
+              >
+                <OrderForm t={t} type={'Premium'} />
+              </Box>
+            </Modal>
+          </Card>
+          <Card className={cls.card} sx={{ maxWidth: 345 }}>
+            <CardHeader title="Basic" />
+            <CardMedia
+              component="img"
+              height="194"
+              image="https://www.woweffect.md/uploads/cars/1679604952.jpg"
+              alt="Paella dish"
+            />
+            <CardContent>
+              <Typography variant="body2" color="text.secondary">
+                {t('descriptionOfItem')}
+              </Typography>
+            </CardContent>
+            <CardActions disableSpacing>
+              <Button onClick={handlePremumOpen}>{t('order')}</Button>
+            </CardActions>
             <Modal
-              open={open}
-              onClose={handleClose}
+              open={basicPremium}
+              onClose={handlePremiumClose}
               aria-labelledby="modal-modal-title"
               aria-describedby="modal-modal-dÍescription"
             >
-              <Box sx={style}>
-                <OrderForm t={t}/>
+              <Box
+                sx={{
+                  height: '700px',
+                  width: '700px',
+                  bgcolor: 'background.paper',
+                  boxShadow: 24,
+                  p: 4,
+                }}
+              >
+                <OrderForm t={t} type={'Basic'} />
               </Box>
             </Modal>
-          </div>
+          </Card>
         </div>
       </div>
     </div>
