@@ -4,9 +4,12 @@ import * as React from 'react';
 
 import { collection, getDocs } from 'firebase/firestore';
 
+import AdminCards from './admin-card';
+import OrderForm from './ui/order-form';
 import bcrypt from 'bcryptjs';
 import cls from '../style.module.css';
 import { db } from './config';
+import { useEffect } from 'react';
 import { useState } from 'react';
 
 function BackOffice() {
@@ -14,6 +17,7 @@ function BackOffice() {
   const [password, setPassword] = useState('');
   const [isCorrectPassword, setIsCorrectPassword] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [orders, setOrders] = useState();
   const compare = (pass, hash) => {
     if (pass && hash) {
       return bcrypt.compareSync(pass, hash);
@@ -23,7 +27,23 @@ function BackOffice() {
     }
   };
 
+  useEffect(() => {
+    // Update the document title using the browser API
+    orderListhandle();
+  }, []);
+
+  const orderListhandle = async () => {
+    const orders = collection(db, 'Order');
+    const ordersSnapshot = await getDocs(orders);
+    const ordersData = ordersSnapshot.docs.map((doc) => doc.data());
+    setOrders(ordersData);
+  };
+
   const handleLogin = async () => {
+    localStorage.setItem(
+      'auth_key',
+      JSON.stringify(process.env.REACT_APP_AUTH_KEY)
+    );
     const usersCollection = collection(db, 'users');
     const usersSnapshot = await getDocs(usersCollection);
     const userData = usersSnapshot.docs.map((doc) => doc.data());
@@ -39,6 +59,7 @@ function BackOffice() {
   };
 
   const handleLogout = () => {
+    localStorage.removeItem('auth_key');
     setPassword('');
     setUsername('');
     setIsLoggedIn(false);
@@ -48,15 +69,25 @@ function BackOffice() {
   };
 
   const renderContent = () => {
-    if (isLoggedIn) {
+    const auth_key = localStorage.getItem('auth_key');
+    console.log('auth_key', auth_key);
+    if (isLoggedIn || auth_key) {
       return (
         <div>
-          <p>Welcome, {username}!</p>
-          {/* Render additional content for authorized users */}
-          <button onClick={handleLogout}>Logout</button>
+          <p>Welcome</p>
+          {orders === undefined ? (
+            <p>Loading...</p>
+          ) : (
+            <>
+              {orders.map((order, index) => (
+                <AdminCards key={index} order={order} />
+              ))}
+              <button onClick={handleLogout}>Logout</button>
+            </>
+          )}
         </div>
       );
-    } else {
+    }else {
       return (
         <div>
           <div className="Auth-form-container, text-center">

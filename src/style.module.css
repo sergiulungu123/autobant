@@ -40,3 +40,19 @@ p {
     text-shadow: 0.25em 0 0 white, 0.5em 0 0 white;
   }
 }
+
+.order {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border: 1px solid #000;
+  border-radius: 10px;
+}
+
+
+
+.myForm {
+  background-color: #fff; /* Цвет формы */
+  padding: 20px;
+  z-index: 1;
+}

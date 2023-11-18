@@ -1,3 +1,6 @@
 {
-  "progress": "in progress"
+  "progress": "in progress",
+  "card-text": "Card text",
+  "order": "comanda",
+  "name": "Nume"
 }
