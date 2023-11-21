@@ -1,6 +1,7 @@
 'use client';
 import { useRouter } from 'next/navigation';
 import { useTranslation } from 'next-i18next';
+import { Dropdown } from 'flowbite-react/lib/esm/components';
 
 export default function Home() {
   const router = useRouter();
@@ -10,11 +11,13 @@ export default function Home() {
     router.push(`/${language}`);
   };
   return (
-    <div className="flex min-h-screen flex-col items-center justify-between p-24">
-      <button onClick={() => changeLanguage('en')}>English</button>
-      <button onClick={() => changeLanguage('es')}>Spanish</button>
-      <h1>{t('welcome')}</h1>
-      <p>{t('greeting', { name: 'John Doe' })}</p>
+    <div>
+      <Dropdown label="Dropdown button">
+        <Dropdown.Item>Dashboard</Dropdown.Item>
+        <Dropdown.Item>Settings</Dropdown.Item>
+        <Dropdown.Item>Earnings</Dropdown.Item>
+        <Dropdown.Item>Sign out</Dropdown.Item>
+      </Dropdown>
     </div>
   );
 }
