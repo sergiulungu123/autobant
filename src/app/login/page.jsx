@@ -6,35 +6,36 @@ import { useRouter } from 'next/navigation';
 import { db } from '../../config/firebase_config';
 import bcrypt from 'bcryptjs';
 
-
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const router = useRouter();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isCorrectPassword, setIsCorrectPassword] = useState(false);
-  const [sessionItem, setSessionItem] = useState('');
+
   useEffect(() => {
-    const storedValue = window.sessionStorage.getItem('value');
-    // @ts-ignore
-    setSessionItem(storedValue);
+    if (typeof window !== 'undefined' && window.sessionStorage) {
+      const storedValue = window.sessionStorage.getItem('auth_key');
+      if (storedValue === process.env.AUTH_KEY) {
+        setIsLoggedIn(true);
+      }
+    }
   }, []);
 
   const handleLogin = async () => {
-    console.log('Login');
     const usersCollection = collection(db, 'users');
     const usersSnapshot = await getDocs(usersCollection);
     const userData = usersSnapshot.docs.map((doc) => doc.data());
     const isValidPassword = compare(password, userData[0].password);
-    console.log(userData);
 
     if (isValidPassword) {
       setIsLoggedIn(true);
       setIsCorrectPassword(true);
-      if (typeof window !== 'undefined' && window.localStorage) {
+      if (typeof window !== 'undefined' && window.sessionStorage) {
         // @ts-ignore
-        localStorage.setItem('auth_key', process.env.REACT_APP_AUTH_KEY);
+        sessionStorage.setItem('auth_key', process.env.AUTH_KEY);
       }
+      router.push('/backoffice');
     } else {
       setIsLoggedIn(false);
       setIsCorrectPassword(false);
@@ -51,9 +52,7 @@ const Login = () => {
   };
 
   const renderContent = () => {
-    console.log(isLoggedIn);
-    console.log(sessionItem);
-    if (isLoggedIn && sessionItem) {
+    if (isLoggedIn) {
       router.push('/backoffice');
     } else {
       return (

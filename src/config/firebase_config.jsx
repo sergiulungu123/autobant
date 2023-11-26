@@ -1,32 +1,18 @@
-import firebase from "firebase/compat/app";
-import "firebase/compat/auth";
-import "firebase/compat/firestore";
+import { getAnalytics } from 'firebase/analytics';
+import { getFirestore } from 'firebase/firestore';
+// Import the functions you need from the SDKs you need
+import { initializeApp } from 'firebase/app';
 // TODO: Add SDKs for Firebase products that you want to use
 const firebaseConfig = {
-  apiKey: process.env.REACT_APP_API_KEY,
-  authDomain: process.env.REACT_APP_AUTH_DOMAIN,
-  projectId: process.env.REACT_APP_PROJECT_ID,
-  storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+  apiKey: process.env.API_KEY,
+  authDomain: process.env.AUTH_DOMAIN,
+  projectId: process.env.PROJECT_ID,
+  storageBucket: process.env.STORAGE_BUCKET,
   messagingSenderId: process.env.MESSAGIN_SENFER_ID,
-  appId: process.env.REACT_APP_MESSAGIN_SENFER_ID,
-  measurementId: process.env.REACT_APP_APP_ID,
+  appId: process.env.APP_ID,
+  measurementId: process.env.MEASUREMENT_ID,
 };
 
 // Initialize Firebase
-if (!firebase.apps.length) {
-  firebase.initializeApp(firebaseConfig);
-}
-
-const db = firebase.firestore();
-const settings = { timestampsInSnapshots: true };
-// @ts-ignore
-db.settings(settings);
-
-// Enable experimentalForceLongPolling for Firestore
-const firestoreConfig = {
-  experimentalForceLongPolling: true,
-};
-const firestore = firebase.firestore(firebase.app());
-firestore.settings(firestoreConfig);
-
-export { firebase, db };
+const app = initializeApp(firebaseConfig);
+export const db = getFirestore(app);
