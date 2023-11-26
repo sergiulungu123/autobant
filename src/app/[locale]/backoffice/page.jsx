@@ -1,7 +1,7 @@
-"use client"
+'use client';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
-import LoadingAnimation from '../backoffice/loading'
+import LoadingAnimation from './loading';
 
 const Backoffice = () => {
   const router = useRouter();
@@ -32,11 +32,10 @@ const Backoffice = () => {
           <button onClick={handleLogout}>Logout</button>
         </div>
       ) : (
-        <LoadingAnimation />  
+        <LoadingAnimation />
       )}
     </div>
   );
 };
 
 export default Backoffice;
-

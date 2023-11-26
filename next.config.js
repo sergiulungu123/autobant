@@ -1,4 +1,5 @@
 /** @type {import('next').NextConfig} */
+
 const nextConfig = {
   env: {
     ADMIN_PASS: 'autbantadmin*7654#',
@@ -12,7 +13,12 @@ const nextConfig = {
     MEASUREMENT_ID: 'G-WSLYLDBSV8',
     AUTH_KEY:
       'AJsdjn89u230dj9023jdjdDS&DY^&DGYDHBAJDIH&Y*WH*DHI&I@G&DHIUWDGHNX*&YD&HSADUASDG&*HIQUO@AKJSNDHASYGDIUSANDKJSABI',
-  },
+  }
 };
 
-module.exports = nextConfig;
+const withNextIntl = require('next-intl/plugin')();
+
+/** @type {import('next').NextConfig} */
+const config = {};
+
+module.exports = withNextIntl(config);

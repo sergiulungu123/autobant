@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
 // Import the functions you need from the SDKs you need
 import { useRouter } from 'next/navigation';
-import { db } from '../../config/firebase_config';
+import { db } from '../../../config/firebase_config';
 import bcrypt from 'bcryptjs';
 
 const Login = () => {
