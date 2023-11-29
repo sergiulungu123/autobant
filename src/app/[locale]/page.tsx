@@ -1,19 +1,31 @@
-import { useTranslation } from 'next-i18next';
+'use client';
 import { useTranslations } from 'next-intl';
-import Head from 'next/head';
-import Image from 'next/image';
 import { FaTwitter, FaFacebook, FaInstagram } from 'react-icons/fa';
 
 import { CSSProperties } from 'react';
-
+import styled from 'styled-components';
 interface Styles {
   container: CSSProperties;
   content: CSSProperties;
   photo: CSSProperties;
-  text: CSSProperties;
+  left: CSSProperties;
+  right: CSSProperties;
   socialIcons: CSSProperties;
   icon: CSSProperties;
 }
+const ImageContainer = styled.div`
+  width: 100%; /* Set the width of the container */
+  height: 100%; /* Set the height of the container */
+  overflow: hidden; /* Hide overflow if image exceeds container size */
+`;
+
+const Image = styled.img`
+  max-width: 120%; /* Ensure the image doesn't exceed the container's width */
+  max-height: 120%; /* Ensure the image doesn't exceed the container's height */
+  display: block; /* Remove default inline spacing */
+  width: auto; /* Override any inherited width */
+  height: auto; /* Override any inherited height */
+`;
 
 const styles: Styles = {
   container: {
@@ -25,25 +37,38 @@ const styles: Styles = {
   },
   content: {
     display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    width: '90%',
-    margin: '0 auto',
   },
   photo: {
-    maxWidth: '60%', // sau width: '50%' în funcție de cum dorești să fie afișată imaginea
+    width: '50',
+    float: 'left', // sau width: '50%' în funcție de cum dorești să fie afișată imaginea
     borderRadius: '8px',
     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-    order: 2,
   },
-  text: {
-    flex: '1',
-    maxWidth: '100%',
+  left: {
+    width: '50%',
+    height: '99vh',
+    float: 'left',
     textAlign: 'center',
-    padding: '24%',
     backgroundColor: '#f5f5f5',
     borderRadius: '8px',
     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column',
+  },
+  right: {
+    width: '50%',
+    height: '99vh',
+    float: 'left',
+    textAlign: 'center',
+    backgroundColor: '#f5f5f5',
+    borderRadius: '8px',
+    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column',
   },
   socialIcons: {
     marginTop: '20px',
@@ -62,23 +87,19 @@ export default function ComingSoon() {
 
   return (
     <div>
-      <Head>
-        <title>Coming Soon</title>
-      </Head>
-      <div style={styles.container}>
-        <div style={styles.content}>
-          <div style={styles.photo}>
-            <img src="/1.jpg"></img>
+      <div style={styles.content}>
+        <div style={styles.left}>
+          <div>{t('title')}</div>
+          <div style={styles.socialIcons}>
+            <FaFacebook style={styles.icon} />
+            <FaInstagram style={styles.icon} />
+            {/* Add more social icons if needed */}
           </div>
-          <div style={styles.text}>
-            <div>{t('title')}</div>
-            <div style={styles.socialIcons}>
-              <FaTwitter style={styles.icon} />
-              <FaFacebook style={styles.icon} />
-              <FaInstagram style={styles.icon} />
-              {/* Add more social icons if needed */}
-            </div>
-          </div>
+        </div>
+        <div style={styles.right}>
+          <ImageContainer>
+            <Image src="/1.jpg" alt="Your Image" />
+          </ImageContainer>
         </div>
       </div>
     </div>
