@@ -1,7 +1,6 @@
 import { useRouter } from 'next/navigation';
 
 export default function LanguageSwitcher() {
-  const router = useRouter();
 
   return (
     <div className='flex space-x-2'>
