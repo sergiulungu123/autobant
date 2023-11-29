@@ -1,7 +1,6 @@
-import { getAnalytics } from 'firebase/analytics';
-import { getFirestore } from 'firebase/firestore';
-// Import the functions you need from the SDKs you need
-import { initializeApp } from 'firebase/app';
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
+import 'firebase/compat/firestore';
 // TODO: Add SDKs for Firebase products that you want to use
 const firebaseConfig = {
   apiKey: process.env.API_KEY,
@@ -14,5 +13,20 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
-export const db = getFirestore(app);
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
+
+const db = firebase.firestore();
+const settings = { timestampsInSnapshots: true };
+// @ts-ignore
+db.settings(settings);
+
+// Enable experimentalForceLongPolling for Firestore
+const firestoreConfig = {
+  experimentalForceLongPolling: true,
+};
+const firestore = firebase.firestore(firebase.app());
+firestore.settings(firestoreConfig);
+
+export { firebase, db };

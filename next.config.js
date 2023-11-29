@@ -1,5 +1,7 @@
-/** @type {import('next').NextConfig} */
 
+const withNextIntl = require('next-intl/plugin')();
+
+/** @type {import('next').NextConfig} */
 const nextConfig = {
   env: {
     ADMIN_PASS: 'autbantadmin*7654#',
@@ -16,9 +18,4 @@ const nextConfig = {
   }
 };
 
-const withNextIntl = require('next-intl/plugin')();
-
-/** @type {import('next').NextConfig} */
-const config = {};
-
-module.exports = withNextIntl(config);
+module.exports = withNextIntl(nextConfig)

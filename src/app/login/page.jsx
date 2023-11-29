@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
 // Import the functions you need from the SDKs you need
 import { useRouter } from 'next/navigation';
-import { db } from '../../../config/firebase_config';
+import { db } from '../../config/firebase_config';
 import bcrypt from 'bcryptjs';
 
 const Login = () => {
@@ -26,6 +26,7 @@ const Login = () => {
     const usersCollection = collection(db, 'users');
     const usersSnapshot = await getDocs(usersCollection);
     const userData = usersSnapshot.docs.map((doc) => doc.data());
+    console.log(userData);
     const isValidPassword = compare(password, userData[0].password);
 
     if (isValidPassword) {
@@ -62,7 +63,7 @@ const Login = () => {
             <input
               type="text"
               placeholder="Имя пользователя"
-              value={username}
+              value="admin"
               onChange={(e) => setUsername(e.target.value)}
             />
             <input
