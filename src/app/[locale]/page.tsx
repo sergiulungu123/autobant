@@ -9,7 +9,7 @@ export default function ComingSoon() {
   return (
     <div className={styles.imagecontainer}>
       <div className={styles.imagewrapper}>
-        <img src="/1.jpg" alt="Your Image" />
+        <img src="/1.jpg" alt="Autobant" />
       </div>
       <div className={styles.centeredText}>
       <h3>{t('under-construction')}</h3>
