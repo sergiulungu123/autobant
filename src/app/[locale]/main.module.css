@@ -23,3 +23,8 @@
   text-align: center;
   color: #998787; /* Adjust text color */
 }
+
+.linkStyle {
+  font-size: 3em;
+  margin-right: 10px;
+}
