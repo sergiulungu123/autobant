@@ -1,0 +1,26 @@
+.imagecontainer {
+  background-color: #f9f4f4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Set height as per your requirement */
+  overflow: scroll;
+}
+
+.imagewrapper {
+  opacity: 20%;
+}
+
+.imagewrapper img {
+  max-width: 250%; /* Make the image scalable */
+  height: auto;
+}
+.centeredText {
+  
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: #998787; /* Adjust text color */
+}
