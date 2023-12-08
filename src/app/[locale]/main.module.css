@@ -3,8 +3,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh; /* Set height as per your requirement */
-  overflow: scroll;
+  height: 100vh;
+  overflow: auto;
 }
 
 .imagewrapper {
@@ -16,11 +16,62 @@
   height: auto;
 }
 .centeredText {
-  
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
   color: #998787; /* Adjust text color */
+}
+.centeredText2 {
+  position: absolute;
+  text-align: center;
+  top: 50%;
+  transform: translate(0%,-1030%);
+  align-items: center;
+}
+
+.centeredText3 {
+  position: absolute;
+  display: flex;
+  top: 50%;
+  transform: translate(0%, 500%);
+  align-items: center;
+}
+
+
+/* Add these styles to your CSS file */
+/* Styles for the select dropdown */
+.selectlanguage {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-color: #d2cccc;
+  border: 1px solid #fbfafa;
+  padding: 10px;
+  font-size: 16px;
+  width: 200px;
+  max-width: 100%;
+  border-radius: 5px;
+  outline: none;
+  cursor: pointer;
+}
+
+/* Styles for select dropdown options */
+.selectlanguage option {
+  padding: 10px;
+  font-size: 16px;
+  background-color: #ffffff;
+  color: #333333;
+}
+
+.selectlang{
+  height: 1000vh;
+  width: auto;
+}
+
+.main{
+  height: 100%; /* Set height as per your requirement */
+  height: 100%;
+  overflow: auto;
 }
